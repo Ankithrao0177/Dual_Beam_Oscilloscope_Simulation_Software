@@ -1,0 +1,63 @@
+.root {
+    -fx-background-color: #C0C0C0;
+    -fx-font-family: "Courier New";
+    -fx-font-size: 12px;
+}
+
+.control-panel {
+    -fx-padding: 10px;
+    -fx-border-color: #808080 #FFFFFF #FFFFFF #808080;
+    -fx-border-width: 2px;
+    -fx-background-color: #C0C0C0;
+}
+
+.control-section {
+    -fx-padding: 10px;
+    -fx-background-color: #D3D3D3;
+    -fx-border-color: #808080 #FFFFFF #FFFFFF #808080;
+    -fx-border-width: 1px;
+}
+
+.slider, .choice-box, .text-field, .button {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #808080 #FFFFFF #FFFFFF #808080;
+    -fx-border-width: 2px;
+    -fx-padding: 2px;
+    -fx-min-width: 100px;
+}
+
+.button {
+    -fx-background-color: #C0C0C0;
+    -fx-effect: innershadow(gaussian, #00000080, 2, 0, 0, 0);
+}
+
+.button:pressed {
+    -fx-border-color: #FFFFFF #808080 #808080 #FFFFFF;
+}
+
+.label {
+    -fx-font-weight: bold;
+}
+
+.status-bar {
+    -fx-padding: 5px;
+    -fx-border-color: #FFFFFF #808080 #808080 #FFFFFF;
+    -fx-border-width: 2px;
+    -fx-background-color: #C0C0C0;
+}
+
+.accordion .titled-pane .title {
+    -fx-background-color: #A9A9A9;
+    -fx-border-color: #808080 #FFFFFF #FFFFFF #808080;
+    -fx-border-width: 1px;
+    -fx-font-weight: bold;
+}
+
+.accordion .titled-pane .content {
+    -fx-background-color: #C0C0C0;
+}
+
+.canvas {
+    -fx-background-color: #1A1A2E;
+    -fx-effect: innershadow(gaussian, #00000080, 5, 0, 0, 0);
+}

@@ -1,0 +1,98 @@
+.control-panel {
+    -fx-background-color: #c0c0c0;
+    -fx-border-color: #ffffff #808080 #808080 #ffffff;
+    -fx-border-width: 2;
+    -fx-padding: 8;
+}
+
+.panel-title {
+    -fx-font-family: "System", "Arial", sans-serif;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+    -fx-padding: 4 0 8 0;
+    -fx-border-color: #808080 #ffffff #ffffff #808080;
+    -fx-border-width: 1;
+    -fx-background-color: #c0c0c0;
+}
+
+.retro-label {
+    -fx-font-family: "System", "Arial", sans-serif;
+    -fx-font-size: 10px;
+    -fx-text-fill: #000000;
+    -fx-background-color: #c0c0c0;
+    -fx-border-color: #808080 #ffffff #ffffff #808080;
+    -fx-border-width: 1;
+    -fx-padding: 2;
+}
+
+.retro-label-value {
+    -fx-font-family: "System", "Arial", sans-serif;
+    -fx-font-size: 10px;
+    -fx-text-fill: #000000;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #808080 #ffffff #ffffff #808080;
+    -fx-border-width: 1;
+    -fx-padding: 2;
+}
+
+.retro-radio-button {
+    -fx-font-family: "System", "Arial", sans-serif;
+    -fx-font-size: 10px;
+    -fx-text-fill: #000000;
+    -fx-background-color: #c0c0c0;
+    -fx-border-color: #ffffff #808080 #808080 #ffffff;
+    -fx-border-width: 2;
+    -fx-padding: 3 6 3 6;
+}
+
+.retro-radio-button:hover {
+    -fx-background-color: #d0d0d0;
+}
+
+.retro-radio-button:selected {
+    -fx-background-color: #a0a0a0;
+    -fx-border-color: #808080 #ffffff #ffffff #808080;
+}
+
+.retro-radio-button .radio {
+    -fx-background-color: #c0c0c0;
+    -fx-border-color: #808080 #ffffff #ffffff #808080;
+    -fx-border-width: 1;
+    -fx-pref-width: 12;
+    -fx-pref-height: 12;
+}
+
+.retro-radio-button:selected .radio .dot {
+    -fx-background-color: #000000;
+}
+
+.retro-slider .track {
+    -fx-background-color: #c0c0c0;
+    -fx-border-color: #808080 #ffffff #ffffff #808080;
+    -fx-border-width: 1;
+    -fx-pref-height: 8;
+}
+
+.retro-slider .thumb {
+    -fx-background-color: #c0c0c0;
+    -fx-border-color: #ffffff #808080 #808080 #ffffff;
+    -fx-border-width: 2;
+    -fx-pref-width: 16;
+    -fx-pref-height: 16;
+}
+
+.retro-slider .thumb:hover {
+    -fx-background-color: #d0d0d0;
+}
+
+.retro-slider .thumb:pressed {
+    -fx-background-color: #a0a0a0;
+    -fx-border-color: #808080 #ffffff #ffffff #808080;
+}
+
+.retro-canvas {
+    -fx-background-color: #000000;
+    -fx-border-color: #808080 #ffffff #ffffff #808080;
+    -fx-border-width: 2;
+}

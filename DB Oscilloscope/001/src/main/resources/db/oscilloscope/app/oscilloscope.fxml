@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.oscilloscope.app.OscilloscopeController">
+    <center>
+        <Canvas fx:id="canvas" width="600" height="600" />
+    </center>
+    <right>
+        <Accordion styleClass="control-panel">
+            <panes>
+                <TitledPane text="Timebase Controls">
+                    <content>
+                        <GridPane hgap="10" vgap="5" styleClass="control-section">
+                            <Label text="Timebase (s/div)" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="label" />
+                            <Slider fx:id="timebaseSlider" min="0.001" max="0.1" value="0.01" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.columnSpan="2" />
+                            <Label fx:id="timebaseLabel" text="Timebase: 0.01 s/div" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="2" />
+                        </GridPane>
+                    </content>
+                </TitledPane>
+                <TitledPane text="CH1 Controls">
+                    <content>
+                        <GridPane hgap="10" vgap="5" styleClass="control-section">
+                            <Label text="Waveform Type" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="label" />
+                            <ChoiceBox fx:id="ch1WaveType" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+                            <Label text="Frequency (Hz)" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="label" />
+                            <TextField fx:id="ch1FreqField" promptText="Frequency (Hz)" text="1.0" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                            <Label text="Voltage (V/div)" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="label" />
+                            <Slider fx:id="ch1VoltSlider" min="0.1" max="5.0" value="1.0" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                            <Label fx:id="ch1VoltLabel" text="CH1: 1.0 V/div" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2" />
+                            <Label text="Amplitude" GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="label" />
+                            <Slider fx:id="ch1AmplitudeSlider" min="0.1" max="2.0" value="1.0" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+                            <Label fx:id="ch1AmplitudeLabel" text="CH1 Amp: 1.0" GridPane.rowIndex="5" GridPane.columnIndex="0" GridPane.columnSpan="2" />
+                            <Label text="Position" GridPane.rowIndex="6" GridPane.columnIndex="0" styleClass="label" />
+                            <Slider fx:id="ch1PosSlider" min="-200" max="200" value="0" GridPane.rowIndex="6" GridPane.columnIndex="1" />
+                            <Label text="Coupling" GridPane.rowIndex="7" GridPane.columnIndex="0" styleClass="label" />
+                            <ChoiceBox fx:id="ch1Coupling" GridPane.rowIndex="7" GridPane.columnIndex="1" />
+                        </GridPane>
+                    </content>
+                </TitledPane>
+                <TitledPane text="CH2 Controls">
+                    <content>
+                        <GridPane hgap="10" vgap="5" styleClass="control-section">
+                            <Label text="Waveform Type" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="label" />
+                            <ChoiceBox fx:id="ch2WaveType" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+                            <Label text="Frequency (Hz)" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="label" />
+                            <TextField fx:id="ch2FreqField" promptText="Frequency (Hz)" text="1.0" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                            <Label text="Voltage (V/div)" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="label" />
+                            <Slider fx:id="ch2VoltSlider" min="0.1" max="5.0" value="1.0" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                            <Label fx:id="ch2VoltLabel" text="CH2: 1.0 V/div" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2" />
+                            <Label text="Amplitude" GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="label" />
+                            <Slider fx:id="ch2AmplitudeSlider" min="0.1" max="2.0" value="1.0" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+                            <Label fx:id="ch2AmplitudeLabel" text="CH2 Amp: 1.0" GridPane.rowIndex="5" GridPane.columnIndex="0" GridPane.columnSpan="2" />
+                            <Label text="Position" GridPane.rowIndex="6" GridPane.columnIndex="0" styleClass="label" />
+                            <Slider fx:id="ch2PosSlider" min="-200" max="200" value="0" GridPane.rowIndex="6" GridPane.columnIndex="1" />
+                            <Label text="Coupling" GridPane.rowIndex="7" GridPane.columnIndex="0" styleClass="label" />
+                            <ChoiceBox fx:id="ch2Coupling" GridPane.rowIndex="7" GridPane.columnIndex="1" />
+                        </GridPane>
+                    </content>
+                </TitledPane>
+                <TitledPane text="Trigger Controls">
+                    <content>
+                        <GridPane hgap="10" vgap="5" styleClass="control-section">
+                            <Label text="Source" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="label" />
+                            <ChoiceBox fx:id="triggerSource" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+                            <Label text="Slope" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="label" />
+                            <ChoiceBox fx:id="triggerSlope" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                            <Label text="Level" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="label" />
+                            <Slider fx:id="triggerSlider" min="-2" max="2" value="0" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                        </GridPane>
+                    </content>
+                </TitledPane>
+                <TitledPane text="Operation">
+                    <content>
+                        <GridPane hgap="10" vgap="5" styleClass="control-section">
+                            <Button fx:id="runStopButton" text="Stop" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2" />
+                            <Button fx:id="spectrumToggleButton" text="Spectrum" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.columnSpan="2" />
+                            <Label text="FFT Window" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="label" />
+                            <ChoiceBox fx:id="fftWindowChoice" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                            <Label text="Max Frequency" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="label" />
+                            <Slider fx:id="maxFreqSlider" min="10" max="1000" value="500" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+                            <Label fx:id="maxFreqLabel" text="Max Freq: 500 Hz" GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.columnSpan="2" />
+                        </GridPane>
+                    </content>
+                </TitledPane>
+            </panes>
+        </Accordion>
+    </right>
+</BorderPane>
