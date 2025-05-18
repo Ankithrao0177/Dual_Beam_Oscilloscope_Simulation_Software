@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.oscilloscope.app.ModulationController" stylesheets="@modulation.css">
+    <center>
+        <Canvas fx:id="canvas" width="400" height="400" styleClass="retro-canvas" />
+    </center>
+    <right>
+        <VBox styleClass="control-panel" spacing="10" padding="$padding">
+            <fx:define>
+                <Insets fx:id="padding" top="8" right="8" bottom="8" left="8" />
+            </fx:define>
+            <Label text="Modulation Controls" styleClass="panel-title" />
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="Modulation Type:" styleClass="retro-label" prefWidth="120" />
+                <VBox spacing="4">
+                    <RadioButton fx:id="modTypeAM" text="AM" styleClass="retro-radio-button" prefWidth="100" />
+                    <RadioButton fx:id="modTypeFM" text="FM" styleClass="retro-radio-button" prefWidth="100" />
+                    <RadioButton fx:id="modTypePM" text="PM" styleClass="retro-radio-button" prefWidth="100" />
+                </VBox>
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="Carrier Freq (Hz):" styleClass="retro-label" prefWidth="120" />
+                <Slider fx:id="carrierFreqSlider" min="10" max="1000" value="100" prefWidth="100" styleClass="retro-slider" />
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label fx:id="carrierFreqLabel" text="Carrier: 100 Hz" styleClass="retro-label-value" prefWidth="200" wrapText="true" />
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="Modulating Freq (Hz):" styleClass="retro-label" prefWidth="120" />
+                <Slider fx:id="modulatingFreqSlider" min="0.1" max="100" value="10" prefWidth="100" styleClass="retro-slider" />
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label fx:id="modulatingFreqLabel" text="Modulating: 10 Hz" styleClass="retro-label-value" prefWidth="200" wrapText="true" />
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label fx:id="modParamLabel" text="Index: 0.5" styleClass="retro-label" prefWidth="120" />
+                <Slider fx:id="modParamSlider" min="0" max="1" value="0.5" prefWidth="100" styleClass="retro-slider" />
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="Timebase (s/div):" styleClass="retro-label" prefWidth="120" />
+                <Slider fx:id="timebaseSlider" min="0.001" max="0.1" value="0.01" prefWidth="100" styleClass="retro-slider" />
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label fx:id="timebaseLabel" text="Timebase: 0.01 s/div" styleClass="retro-label-value" prefWidth="200" wrapText="true" />
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="Voltage (V/div):" styleClass="retro-label" prefWidth="120" />
+                <Slider fx:id="voltSlider" min="0.1" max="5.0" value="1.0" prefWidth="100" styleClass="retro-slider" />
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label fx:id="voltLabel" text="Voltage: 1.0 V/div" styleClass="retro-label-value" prefWidth="200" wrapText="true" />
+            </HBox>
+        </VBox>
+    </right>
+</BorderPane>

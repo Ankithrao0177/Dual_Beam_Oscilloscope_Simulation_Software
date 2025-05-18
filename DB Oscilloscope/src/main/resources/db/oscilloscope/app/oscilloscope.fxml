@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.oscilloscope.app.OscilloscopeController">
+    <center>
+        <Canvas fx:id="canvas" width="600" height="600" />
+    </center>
+    <right>
+        <Accordion styleClass="control-panel">
+            <panes>
+                <TitledPane text="Timebase Controls">
+                    <content>
+                        <VBox spacing="5" styleClass="control-section" padding="$padding">
+                            <fx:define>
+                                <Insets fx:id="padding" top="5" right="10" bottom="5" left="10" />
+                            </fx:define>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Timebase (s/div)" styleClass="label" prefWidth="100" />
+                                <Slider fx:id="timebaseSlider" min="0.001" max="0.1" value="0.01" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label fx:id="timebaseLabel" text="Timebase: 0.01 s/div" prefWidth="200" wrapText="true" />
+                            </HBox>
+                        </VBox>
+                    </content>
+                </TitledPane>
+                <TitledPane text="CH1 Controls">
+                    <content>
+                        <VBox spacing="5" styleClass="control-section" padding="$padding">
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Waveform Type" styleClass="label" prefWidth="100" />
+                                <ChoiceBox fx:id="ch1WaveType" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Frequency (Hz)" styleClass="label" prefWidth="100" />
+                                <TextField fx:id="ch1FreqField" promptText="Frequency (Hz)" text="1.0" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Voltage (V/div)" styleClass="label" prefWidth="100" />
+                                <Slider fx:id="ch1VoltSlider" min="0.1" max="5.0" value="1.0" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label fx:id="ch1VoltLabel" text="CH1: 1.0 V/div" prefWidth="200" wrapText="true" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Amplitude" styleClass="label" prefWidth="100" />
+                                <Slider fx:id="ch1AmplitudeSlider" min="0.1" max="2.0" value="1.0" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label fx:id="ch1AmplitudeLabel" text="CH1 Amp: 1.0" prefWidth="200" wrapText="true" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Position" styleClass="label" prefWidth="100" />
+                                <Slider fx:id="ch1PosSlider" min="-200" max="200" value="0" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Coupling" styleClass="label" prefWidth="100" />
+                                <ChoiceBox fx:id="ch1Coupling" prefWidth="100" />
+                            </HBox>
+                        </VBox>
+                    </content>
+                </TitledPane>
+                <TitledPane text="CH2 Controls">
+                    <content>
+                        <VBox spacing="5" styleClass="control-section" padding="$padding">
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Waveform Type" styleClass="label" prefWidth="100" />
+                                <ChoiceBox fx:id="ch2WaveType" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Frequency (Hz)" styleClass="label" prefWidth="100" />
+                                <TextField fx:id="ch2FreqField" promptText="Frequency (Hz)" text="1.0" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Voltage (V/div)" styleClass="label" prefWidth="100" />
+                                <Slider fx:id="ch2VoltSlider" min="0.1" max="5.0" value="1.0" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label fx:id="ch2VoltLabel" text="CH2: 1.0 V/div" prefWidth="200" wrapText="true" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Amplitude" styleClass="label" prefWidth="100" />
+                                <Slider fx:id="ch2AmplitudeSlider" min="0.1" max="2.0" value="1.0" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label fx:id="ch2AmplitudeLabel" text="CH2 Amp: 1.0" prefWidth="200" wrapText="true" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Position" styleClass="label" prefWidth="100" />
+                                <Slider fx:id="ch2PosSlider" min="-200" max="200" value="0" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Coupling" styleClass="label" prefWidth="100" />
+                                <ChoiceBox fx:id="ch2Coupling" prefWidth="100" />
+                            </HBox>
+                        </VBox>
+                    </content>
+                </TitledPane>
+                <TitledPane text="Trigger Controls">
+                    <content>
+                        <VBox spacing="5" styleClass="control-section" padding="$padding">
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Source" styleClass="label" prefWidth="100" />
+                                <ChoiceBox fx:id="triggerSource" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Slope" styleClass="label" prefWidth="100" />
+                                <ChoiceBox fx:id="triggerSlope" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Level" styleClass="label" prefWidth="100" />
+                                <Slider fx:id="triggerSlider" min="-2" max="2" value="0" prefWidth="100" />
+                            </HBox>
+                        </VBox>
+                    </content>
+                </TitledPane>
+                <TitledPane text="Math Channel">
+                    <content>
+                        <VBox spacing="5" styleClass="control-section" padding="$padding">
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Operation" styleClass="label" prefWidth="100" />
+                                <ChoiceBox fx:id="mathOperationChoice" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Voltage (V/div)" styleClass="label" prefWidth="100" />
+                                <Slider fx:id="mathVoltSlider" min="0.1" max="5.0" value="1.0" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label fx:id="mathVoltLabel" text="Math: 1.0 V/div" prefWidth="200" wrapText="true" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Position" styleClass="label" prefWidth="100" />
+                                <Slider fx:id="mathPosSlider" min="-200" max="200" value="0" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Color" styleClass="label" prefWidth="100" />
+                                <ChoiceBox fx:id="mathColorChoice" prefWidth="100" />
+                            </HBox>
+                        </VBox>
+                    </content>
+                </TitledPane>
+                <TitledPane text="Demodulation Controls">
+                    <content>
+                        <VBox spacing="5" styleClass="control-section" padding="$padding">
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Type" styleClass="label" prefWidth="100" />
+                                <ChoiceBox fx:id="demodulationChoice" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Voltage (V/div)" styleClass="label" prefWidth="100" />
+                                <Slider fx:id="basebandVoltSlider" min="0.1" max="5.0" value="1.0" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label fx:id="basebandVoltLabel" text="Baseband: 1.0 V/div" prefWidth="200" wrapText="true" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Position" styleClass="label" prefWidth="100" />
+                                <Slider fx:id="basebandPosSlider" min="-200" max="200" value="0" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Parameters" styleClass="label" prefWidth="100" />
+                                <Label fx:id="modulationParamsLabel" text="Carrier: 0 Hz, Index: 0" prefWidth="200" wrapText="true" />
+                            </HBox>
+                        </VBox>
+                    </content>
+                </TitledPane>
+                <TitledPane text="Operation">
+                    <content>
+                        <VBox spacing="5" styleClass="control-section" padding="$padding">
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Button fx:id="runStopButton" text="Stop" prefWidth="150" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Button fx:id="spectrumToggleButton" text="Spectrum" prefWidth="150" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Button fx:id="digitalToggleButton" text="Show Digital" prefWidth="150" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Button fx:id="compareSpectraButton" text="Compare Spectra" prefWidth="150" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Button fx:id="modulationWindowButton" text="Modulation Simulation" prefWidth="150" />
+                            </HBox>
+                            <!--
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Button fx:id="eyeDiagramButton" text="Eye Diagram Analysis" prefWidth="150" />
+                            </HBox>
+                            -->
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="FFT Window" styleClass="label" prefWidth="100" />
+                                <ChoiceBox fx:id="fftWindowChoice" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Max Frequency (Hz)" styleClass="label" prefWidth="100" />
+                                <Slider fx:id="maxFreqSlider" min="10" max="1000" value="500" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label fx:id="maxFreqLabel" text="Max Freq: 500 Hz" prefWidth="200" wrapText="true" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Protocol" styleClass="label" prefWidth="100" />
+                                <ChoiceBox fx:id="protocolChoice" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Decoded Output" styleClass="label" prefWidth="100" />
+                                <TextArea fx:id="protocolOutput" prefHeight="100" prefWidth="100" wrapText="true" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Freq Scale" styleClass="label" prefWidth="100" />
+                                <ChoiceBox fx:id="freqScaleChoice" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Mag Scale" styleClass="label" prefWidth="100" />
+                                <ChoiceBox fx:id="magScaleChoice" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Peak Detection" styleClass="label" prefWidth="100" />
+                                <CheckBox fx:id="peakDetectionCheckBox" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label fx:id="snrLabel" text="SNR: Disabled" prefWidth="200" wrapText="true" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="RBW" styleClass="label" prefWidth="100" />
+                                <ChoiceBox fx:id="rbwChoice" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="Dynamic Range" styleClass="label" prefWidth="100" />
+                                <Slider fx:id="dynamicRangeSlider" min="-100" max="-20" value="-60" prefWidth="100" />
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label fx:id="dynamicRangeLabel" text="Dyn Range: -60 dB" prefWidth="200" wrapText="true" />
+                            </HBox>
+                        </VBox>
+                    </content>
+                </TitledPane>
+            </panes>
+        </Accordion>
+    </right>
+</BorderPane>

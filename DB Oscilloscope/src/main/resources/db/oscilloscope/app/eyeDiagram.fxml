@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.oscilloscope.app.EyeDiagramController" stylesheets="@eyeDiagram.css">
+    <center>
+        <Canvas fx:id="canvas" width="400" height="400" styleClass="retro-canvas" />
+    </center>
+    <right>
+        <VBox styleClass="control-panel" spacing="10" padding="$padding">
+            <fx:define>
+                <Insets fx:id="padding" top="8" right="8" bottom="8" left="8" />
+            </fx:define>
+            <Label text="Eye Diagram Controls" styleClass="panel-title" />
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="Signal Type:" styleClass="retro-label" prefWidth="120" />
+                <VBox spacing="4">
+                    <RadioButton fx:id="signalTypeNRZ" text="NRZ" styleClass="retro-radio-button" prefWidth="100" />
+                    <RadioButton fx:id="signalTypePAM4" text="PAM4" styleClass="retro-radio-button" prefWidth="100" />
+                </VBox>
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="Bit Rate (Mbps):" styleClass="retro-label" prefWidth="120" />
+                <Slider fx:id="bitRateSlider" min="1" max="1000" value="100" prefWidth="100" styleClass="retro-slider" />
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label fx:id="bitRateLabel" text="Bit Rate: 100 Mbps" styleClass="retro-label-value" prefWidth="200" wrapText="true" />
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="Amplitude (V):" styleClass="retro-label" prefWidth="120" />
+                <Slider fx:id="amplitudeSlider" min="0.1" max="2.0" value="1.0" prefWidth="100" styleClass="retro-slider" />
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label fx:id="amplitudeLabel" text="Amplitude: 1.0 V" styleClass="retro-label-value" prefWidth="200" wrapText="true" />
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="Noise (mV RMS):" styleClass="retro-label" prefWidth="120" />
+                <Slider fx:id="noiseSlider" min="0" max="100" value="10" prefWidth="100" styleClass="retro-slider" />
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label fx:id="noiseLabel" text="Noise: 10 mV RMS" styleClass="retro-label-value" prefWidth="200" wrapText="true" />
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="Jitter (ps RMS):" styleClass="retro-label" prefWidth="120" />
+                <Slider fx:id="jitterSlider" min="0" max="100" value="10" prefWidth="100" styleClass="retro-slider" />
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label fx:id="jitterLabel" text="Jitter: 10 ps RMS" styleClass="retro-label-value" prefWidth="200" wrapText="true" />
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label fx:id="eyeHeightLabel" text="Eye Height: 0.0 V" styleClass="retro-label-value" prefWidth="200" wrapText="true" />
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label fx:id="eyeWidthLabel" text="Eye Width: 0.0 ns" styleClass="retro-label-value" prefWidth="200" wrapText="true" />
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label fx:id="jitterRMSLabel" text="Jitter RMS: 0.0 ps" styleClass="retro-label-value" prefWidth="200" wrapText="true" />
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label fx:id="jitterPPLabel" text="Jitter P-P: 0.0 ps" styleClass="retro-label-value" prefWidth="200" wrapText="true" />
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label fx:id="tieLabel" text="TIE RMS: 0.0 ps" styleClass="retro-label-value" prefWidth="200" wrapText="true" />
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label fx:id="cycleJitterLabel" text="Cycle Jitter: 0.0 ps" styleClass="retro-label-value" prefWidth="200" wrapText="true" />
+            </HBox>
+        </VBox>
+    </right>
+</BorderPane>
