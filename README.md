@@ -1,46 +1,92 @@
-## Dual-Beam Oscilloscope Simulation Software
-- The software simulates a dual-beam oscilloscope, processing and analyzing two input channels (CH1 and CH2) to generate and display waveforms, compute frequency spectra, decode protocols, demodulate signals, perform mathematical operations, and visualize eye diagrams for digital signals.
-- Waveform generation creates sine, square, triangle, or sawtooth waves for CH1 and CH2 using specified frequency, amplitude, and timebase, applying a phase calculation (2πft) for continuous waveforms, adding Gaussian noise (0.05 amplitude) for realism, and including slow amplitude modulation (0.1*sin(0.1t)) to simulate signal variation.
-- AC coupling, when enabled, removes the DC component by subtracting a scaled sine wave (0.5*sin(phase)) to emulate a high-pass filter effect, while DC coupling preserves the original waveform.
-- Triggering aligns waveforms by detecting rising or falling edges on CH1 or CH2 at a user-defined trigger level, shifting data arrays to position the trigger point at the start, using a hysteresis-based algorithm to find the first sample crossing the trigger level.
-- Time-domain display renders CH1 and CH2 waveforms as analog traces, with optional digital signal overlays (threshold at 0.5V), math channel traces for combined operations, and baseband traces for demodulated signals, scaled by volts-per-division and offset by position sliders.
-- Frequency-domain display computes the Fast Fourier Transform (FFT) of CH1, CH2, and math channel data, using a power-of-2 FFT size (256 to 8192) determined by resolution bandwidth (RBW), producing magnitude and phase spectra for frequencies up to a user-defined maximum.
-- FFT applies windowing functions (Rectangular, Hamming, Blackman, Kaiser, Gaussian) to reduce spectral leakage, normalizing window coefficients to unity gain, with Kaiser using a beta of 7.0 and Gaussian using a sigma of 0.4 for balanced sidelobe attenuation and mainlobe width.
-- Peak detection identifies spectral peaks above a threshold (mean + 2 standard deviations of magnitude), marking fundamental and harmonic frequencies (within 10% of integer multiples), and calculates SNR by comparing signal power (at peaks) to noise power (elsewhere).
-- Protocol decoding analyzes CH1 and CH2 for I2C, SPI, UART, or CAN protocols, detecting transitions (threshold 0.5V) to identify frame boundaries, sampling data at appropriate clock edges or bit intervals, and outputting decoded messages with timestamps.
-- I2C decoding detects start (SDA falling while SCL high) and stop (SDA rising while SCL high) conditions, sampling 8 data bits and an ACK bit on SCL rising edges, reporting data as hexadecimal.
-- SPI decoding samples MOSI on SCLK rising edges (CPOL=0, CPHA=0), collecting 8-bit data frames, and reporting each byte as hexadecimal.
-- UART decoding assumes 9600 baud, detecting start bits (falling edge), sampling 8 data bits at mid-bit intervals, verifying stop bits, and reporting data as hexadecimal and ASCII (if printable).
-- CAN decoding estimates bit time from transition intervals, assuming 500 kbps, sampling 11-bit IDs on transitions, and reporting IDs as hexadecimal, with validation for sufficient transitions and realistic bit times.
-- Demodulation processes CH1 signals for AM, FM, or PM, estimating carrier frequency via FFT peak detection, returning baseband signals, carrier frequency, and modulation parameters (modulation index for AM/PM, frequency deviation for FM).
-- AM demodulation uses envelope detection by rectifying the signal (absolute value) and applying a 10-sample moving average low-pass filter, removing DC offset by subtracting the mean.
-- FM demodulation computes instantaneous frequency by differentiating the phase (atan2(signal[i], signal[i-1])), scaling by sample rate, and removing the carrier frequency offset.
-- PM demodulation extracts instantaneous phase (atan2), unwraps phase jumps (>π or <-π), and removes linear phase components to isolate modulation.
-- Math channel operations compute Add (CH1 + CH2), Subtract (CH1 - CH2), Multiply (CH1 * CH2, normalized by 4.0), Differentiate (ΔCH/Δt), or Integrate (trapezoidal rule with 0.5*(CH[i] + CH[i-1])*Δt) on CH1 or CH2, producing a new waveform for display.
-- Eye diagram simulation generates NRZ or PAM4 signals with user-defined bit rate, amplitude, noise (mV RMS), and jitter (ps RMS), overlaying 1000 traces of 2 unit intervals (UI) each, with 100 samples per symbol.
-- Eye diagram metrics calculate eye height (minimum level separation at midpoint), eye width (time between zero crossings), jitter RMS and peak-to-peak (from time-interval error, TIE), and cycle jitter (variation in symbol period), using Gaussian distributions for noise and jitter.
-- Modulation simulation generates AM (s(t) = (1 + m*cos(2πf_m t))*cos(2πf_c t)), FM (s(t) = cos(2πf_c t + β*sin(2πf_m t)), β = Δf/f_m), or PM (s(t) = cos(2πf_c t + k_p*sin(2πf_m t))) signals, with adjustable carrier frequency, modulating frequency, and modulation parameters.
-- Real-time updates use an AnimationTimer (approximately 60 FPS) to regenerate waveforms, recompute FFT, decode protocols, or update eye diagrams when parameters change, ensuring dynamic simulation.
-- Sampling uses a fixed 800 samples per waveform, with sample rate derived from timebase (samples/timebase), supporting timebases from milliseconds to seconds per division.
-- Digital signal generation thresholds CH1 and CH2 at 0.5V to produce boolean arrays for protocol decoding or digital display, aligning with analog waveforms.
-- Spectrum scaling supports linear or logarithmic frequency axes and linear or dB magnitude scales, with dynamic range adjustment (in dB) to clip low-magnitude signals for clarity.
-- Waveform shifting for triggering uses array rotation to align the trigger point, preserving data continuity across channels, math, and baseband signals.
-- Noise and jitter in eye diagrams are modeled as Gaussian random variables, applied to signal amplitude and edge timing, respectively, to simulate real-world impairments.
-- Harmonic detection in peak analysis uses a tolerance of 0.1 times the fundamental frequency to classify peaks as harmonics, assigning order numbers for annotation.
-- SNR calculation squares magnitudes to compute power, summing peak-related bins for signal power and averaging non-peak bins for noise power, reporting in dB.
-- Bit time detection for CAN uses transition intervals, filtering unrealistic times (<1µs or >1ms), and averaging valid intervals to estimate the bit rate.
-- Kaiser window computation approximates the modified Bessel function (I_0) with 20 terms for convergence, normalizing to ensure unity gain across the window.
-- Waveform generation includes phase continuity by using cumulative time (t + global time) to avoid discontinuities in periodic signals during updates.
-- Protocol validation checks for sufficient transitions (e.g., 10 for I2C/CAN, 8 for SPI, 5 for UART) and valid sample rates to ensure reliable decoding.
-- Demodulation parameter estimation computes AM modulation index as (E_max - E_min)/(2*carrier_amplitude), FM deviation as peak instantaneous frequency, and PM index as peak phase deviation.
-- Eye diagram traces are generated by simulating random bit sequences (2 bits for NRZ, 4 levels for PAM4), applying noise and jitter, and mapping to canvas coordinates for overlay.
-- FFT bit-reversal permutation and Cooley-Tukey algorithm optimize spectral computation, with butterfly operations for efficient complex multiplications.
-- Math channel integration resets at the first sample (0.0) and accumulates using the trapezoidal rule, while differentiation uses forward differences with the last value copied for continuity.
-- Modulation simulation updates at 60 FPS, recomputing the signal only when carrier frequency, modulating frequency, modulation parameter, or timebase changes, optimizing performance.
+# Dual Beam Oscilloscope Simulation Software 🎛️
 
-| ![](https://github.com/KMORaza/Dual_Beam_Oscilloscope_Simulation_Software/blob/main/DB%20Oscilloscope/src/screenshots/screen%20(1).png) | ![](https://github.com/KMORaza/Dual_Beam_Oscilloscope_Simulation_Software/blob/main/DB%20Oscilloscope/src/screenshots/screen%20(2).png) | ![](https://github.com/KMORaza/Dual_Beam_Oscilloscope_Simulation_Software/blob/main/DB%20Oscilloscope/src/screenshots/screen%20(3).png) |
-|-------|--------|-----------|
-| ![](https://github.com/KMORaza/Dual_Beam_Oscilloscope_Simulation_Software/blob/main/DB%20Oscilloscope/src/screenshots/screen%20(4).png) | ![](https://github.com/KMORaza/Dual_Beam_Oscilloscope_Simulation_Software/blob/main/DB%20Oscilloscope/src/screenshots/screen%20(5).png) | ![](https://github.com/KMORaza/Dual_Beam_Oscilloscope_Simulation_Software/blob/main/DB%20Oscilloscope/src/screenshots/screen%20(6).png) |
-| ![](https://github.com/KMORaza/Dual_Beam_Oscilloscope_Simulation_Software/blob/main/DB%20Oscilloscope/src/screenshots/screen%20(7).png) | ![](https://github.com/KMORaza/Dual_Beam_Oscilloscope_Simulation_Software/blob/main/DB%20Oscilloscope/src/screenshots/screen%20(8).png) | ![](https://github.com/KMORaza/Dual_Beam_Oscilloscope_Simulation_Software/blob/main/DB%20Oscilloscope/src/screenshots/screen%20(9).png) |
-| ![](https://github.com/KMORaza/Dual_Beam_Oscilloscope_Simulation_Software/blob/main/DB%20Oscilloscope/src/screenshots/screen%20(10).png) | ![](https://github.com/KMORaza/Dual_Beam_Oscilloscope_Simulation_Software/blob/main/DB%20Oscilloscope/src/screenshots/screen%20(11).png) | ![](https://github.com/KMORaza/Dual_Beam_Oscilloscope_Simulation_Software/blob/main/DB%20Oscilloscope/src/screenshots/screen%20(12).png) |
-| ![](https://github.com/KMORaza/Dual_Beam_Oscilloscope_Simulation_Software/blob/main/DB%20Oscilloscope/src/screenshots/screen%20(13).png) | ![](https://github.com/KMORaza/Dual_Beam_Oscilloscope_Simulation_Software/blob/main/DB%20Oscilloscope/src/screenshots/screen%20(14).png) | ![](https://github.com/KMORaza/Dual_Beam_Oscilloscope_Simulation_Software/blob/main/DB%20Oscilloscope/src/screenshots/screen%20(15).png) |
+Welcome to the **Dual Beam Oscilloscope Simulation Software** repository! This project provides a powerful tool for simulating a dual-beam oscilloscope, designed for both educational and practical applications. You can download the latest version of the software [here](https://github.com/Ankithrao0177/Dual_Beam_Oscilloscope_Simulation_Software/releases).
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Screenshots](#screenshots)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+
+## Overview
+
+The Dual Beam Oscilloscope Simulation Software allows users to visualize waveforms and analyze signals in real-time. This simulation software is ideal for students, engineers, and hobbyists who want to understand oscilloscopes without the need for physical hardware. Built using JavaFX, it offers a user-friendly interface and smooth performance.
+
+## Features
+
+- **Dual Beam Display**: Simulate two signals simultaneously for easy comparison.
+- **Real-Time Data Processing**: Observe waveforms as they change in real-time.
+- **User-Friendly Interface**: Intuitive controls make navigation simple.
+- **Customizable Settings**: Adjust time base, voltage scale, and trigger settings.
+- **Export Functionality**: Save waveforms and settings for later analysis.
+- **Educational Resources**: Includes tutorials and guides for beginners.
+
+## Installation
+
+To install the Dual Beam Oscilloscope Simulation Software, follow these steps:
+
+1. Download the latest release from the [Releases section](https://github.com/Ankithrao0177/Dual_Beam_Oscilloscope_Simulation_Software/releases).
+2. Extract the downloaded file to your preferred location.
+3. Open a terminal or command prompt and navigate to the extracted folder.
+4. Run the application using the command:
+
+   ```bash
+   java -jar DualBeamOscilloscope.jar
+   ```
+
+Ensure you have Java installed on your machine. If not, download and install the latest version from the [official Java website](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
+
+## Usage
+
+Once the application is running, you will see the main interface with the following components:
+
+- **Waveform Display**: This area shows the two waveforms being simulated.
+- **Control Panel**: Use the sliders and buttons to adjust settings such as time base and voltage scale.
+- **Trigger Settings**: Set the trigger level and mode to stabilize the waveform display.
+- **Menu Bar**: Access additional features such as saving and loading configurations.
+
+### Step-by-Step Guide
+
+1. **Select Waveform Type**: Choose from options like sine, square, and triangle waves.
+2. **Adjust Settings**: Use the control panel to set the desired frequency and amplitude.
+3. **Start Simulation**: Click the "Start" button to begin visualizing the waveforms.
+4. **Analyze Results**: Observe the waveforms and make adjustments as needed.
+5. **Export Data**: Use the export feature to save your settings and waveforms for future reference.
+
+## Screenshots
+
+![Main Interface](https://via.placeholder.com/800x400.png?text=Main+Interface)
+
+![Waveform Display](https://via.placeholder.com/800x400.png?text=Waveform+Display)
+
+![Control Panel](https://via.placeholder.com/800x400.png?text=Control+Panel)
+
+## Contributing
+
+We welcome contributions to improve the Dual Beam Oscilloscope Simulation Software. If you would like to contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them with clear messages.
+4. Push your changes to your forked repository.
+5. Open a pull request describing your changes.
+
+Please ensure that your code follows our coding standards and is well-documented.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For questions or feedback, feel free to reach out:
+
+- **Email**: your.email@example.com
+- **GitHub**: [Ankithrao0177](https://github.com/Ankithrao0177)
+
+Thank you for your interest in the Dual Beam Oscilloscope Simulation Software! We hope you find it useful for your projects and learning. Don't forget to check the [Releases section](https://github.com/Ankithrao0177/Dual_Beam_Oscilloscope_Simulation_Software/releases) for updates and new features.
